@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>View Pesawat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="row justify-content-md-center" style="margin-top: 5%;">
+    <h2 >Detail Penerbangan</h2>
+</div>
+<div class="row justify-content-md-center" >
+    <div class="col col-lg-2" style="font-weight: bold;">
+        <p>Kode Penerbangan</p>
+    </div>
+    <div class="col col-lg-2">
+        <p th:text="${penerbangan.nomorPenerbangan}"></p>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col col-lg-2" style="font-weight: bold;">
+        <p>Kode Bandara Asal</p>
+    </div>
+    <div class="col col-lg-2">
+        <p th:text="${penerbangan.kodeBandaraAsal}"></p>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col col-lg-2" style="font-weight: bold;">
+        <p>Kode Bandara Tujuan</p>
+    </div>
+    <div class="col col-lg-2">
+        <p th:text="${penerbangan.kodeBandaraTujuan}"></p>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col col-lg-2" style="font-weight: bold;">
+        <p>Waktu Berangkat</p>
+    </div>
+    <div class="col col-lg-2">
+        <p th:text="${penerbangan.waktuBerangkat}"></p>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col col-lg-2" style="font-weight: bold;">
+        <p>Nomor Seri Pesawat</p>
+    </div>
+    <div class="col col-lg-2">
+<!--        <div th:switch="${penerbangan.pesawat != null} ? ${penerbangan.pesawat.nomorSeri}">-->
+        <p th:text="${penerbangan.pesawat != null} ? ${penerbangan.pesawat.nomorSeri} : 'Belum diassign pesawat'"></p>
+    </div>
+</div>
+
+
+</body>
+</html>
