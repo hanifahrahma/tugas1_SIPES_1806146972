@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+import java.time.Period;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional
@@ -40,7 +41,18 @@ public class PesawatServiceImpl implements PesawatService {
     }
 
     @Override
-    public List<PesawatModel> getlistPesawatTua() {
-        return null;
+    public List<PesawatModel> getlistPesawatTua(Date date) {
+        List<PesawatModel> listpesawat = pesawatDb.findAll();
+        List<PesawatModel> listpesawatTua = new ArrayList<>();
+        for(PesawatModel pesawat:listpesawat){
+//            long year = Period.between(pesawat.getTanggalDibuat(), date).getYears();
+            long difference_In_Time = date.getTime() - pesawat.getTanggalDibuat().getTime();
+            long year= TimeUnit.MILLISECONDS.toDays(difference_In_Time) / 3651;
+            if (year > 10 ){
+                listpesawatTua.add(pesawat);
+            }
+
+        }
+        return listpesawatTua;
     }
 }

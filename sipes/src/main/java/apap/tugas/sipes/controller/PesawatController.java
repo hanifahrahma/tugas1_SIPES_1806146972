@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 @Controller
 public class PesawatController {
@@ -44,8 +46,13 @@ public class PesawatController {
 
     @GetMapping("/pesawat/pesawat-tua")
     private String viewAllPesawatTua(Model model){
-        model.addAttribute("listpesawat",pesawatService.getlistPesawat());
-        return "viewall-pesawat";
+        Date today = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(today);
+        int year = cal.get(Calendar.YEAR);
+        model.addAttribute("listpesawat",pesawatService.getlistPesawatTua(today));
+//        model.addAttribute("year", year);
+        return "viewall-pesawat-tua";
     }
 
     @GetMapping("/pesawat/tambah")
