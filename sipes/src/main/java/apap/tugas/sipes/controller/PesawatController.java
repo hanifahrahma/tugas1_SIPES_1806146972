@@ -4,10 +4,7 @@ import apap.tugas.sipes.model.PenerbanganModel;
 import apap.tugas.sipes.model.PesawatModel;
 import apap.tugas.sipes.model.PesawatTeknisiModel;
 import apap.tugas.sipes.repository.PesawatTeknisiDb;
-import apap.tugas.sipes.service.PesawatService;
-import apap.tugas.sipes.service.PesawatTeknisiService;
-import apap.tugas.sipes.service.TeknisiService;
-import apap.tugas.sipes.service.TipeService;
+import apap.tugas.sipes.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -33,6 +30,9 @@ public class PesawatController {
     @Autowired
     private PesawatTeknisiService pesawatTeknisiService;
 
+    @Autowired
+    private PenerbanganService penerbanganService;
+
     @GetMapping("/")
     private String home(){
         return "home";
@@ -52,7 +52,7 @@ public class PesawatController {
         int year = cal.get(Calendar.YEAR);
 //        HashMap<String, List> hashMapHasil = pesawatService.getlistPesawatTua(year);
         List<PesawatModel> listpesawattua = pesawatService.getlistPesawatTua(year);
-        System.out.println(listpesawattua.size());
+//        System.out.println(listpesawattua.size());
 //        List<String> listusia = hashMapHasil.get("listusia");
 
         model.addAttribute("listpesawat",listpesawattua);
@@ -126,6 +126,39 @@ public class PesawatController {
         model.addAttribute("listteknisi", pesawatTeknisiService.getListTeknisibyIdPesawat(pesawatModel));
         return "view-pesawat";
     }
+
+    @GetMapping("/pesawat/{id}/tambah-penerbangan")
+    public String tambahPenerbangan(
+            @PathVariable Long id,
+            Model model
+    ) {
+        PesawatModel pesawatModel = pesawatService.getPesawatbyid(id);
+//        PenerbanganModel penerbanganModel = new PenerbanganModel();
+//        List<PenerbanganModel> listpenerbangan = new ArrayList<>();
+//        pesawatModel.setListpenerbangan(listpenerbangan);
+        model.addAttribute("pesawat", pesawatModel);
+        model.addAttribute("listteknisi", pesawatTeknisiService.getListTeknisibyIdPesawat(pesawatModel));
+        model.addAttribute("listpenerbangan", penerbanganService.getlistPenerbanganNoPesawat());
+        model.addAttribute("listpenerbanganpesawat", pesawatService.getlistPenerbanganPesawat(pesawatModel));
+        return "view-pesawat-penerbangan";
+    }
+
+    @PostMapping(path = "/pesawat/{id}/tambah-penerbangan", params ="save")
+    public String addPenerbanganSubmit(
+            @PathVariable Long id,
+            @ModelAttribute PenerbanganModel penerbanganModel,
+            Model model
+    ){
+        PesawatModel pesawatModel = pesawatService.getPesawatbyid(id);
+        penerbanganModel.setPesawat(pesawatModel);
+        pesawatModel.getListpenerbangan().add(penerbanganModel);
+        model.addAttribute("pesawat", pesawatModel);
+        model.addAttribute("listteknisi", pesawatTeknisiService.getListTeknisibyIdPesawat(pesawatModel));
+        model.addAttribute("listpenerbangan", penerbanganService.getlistPenerbanganNoPesawat());
+        model.addAttribute("listpenerbanganpesawat", pesawatService.getlistPenerbanganPesawat(pesawatModel));
+        return "view-pesawat-penerbangan";
+    }
+
     @GetMapping("/pesawat/ubah/{idPesawat}")
     public String changePesawatFormPage(
             @PathVariable Long idPesawat,

@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public interface PesawatService {
     List<PesawatModel> getlistPesawat();
+    List<PenerbanganModel> getlistPenerbanganPesawat(PesawatModel pesawatModel);
     List<PesawatModel> getlistPesawatTua(int year);
     void addPesawat(PesawatModel pesawatModel);
     String getNameTipe(PesawatModel pesawatModel);

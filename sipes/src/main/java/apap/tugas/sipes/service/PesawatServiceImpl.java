@@ -26,6 +26,11 @@ public class PesawatServiceImpl implements PesawatService {
     }
 
     @Override
+    public List<PenerbanganModel> getlistPenerbanganPesawat(PesawatModel pesawatModel) {
+        return pesawatModel.getListpenerbangan();
+    }
+
+    @Override
     public void addPesawat(PesawatModel pesawatModel) {
         pesawatDb.save(pesawatModel);
     }
@@ -57,7 +62,7 @@ public class PesawatServiceImpl implements PesawatService {
                 listpesawatTua.add(pesawat);
                 listusia.add(Integer.toString(usia));
             }
-            System.out.println(listpesawatTua.size());
+//            System.out.println(listpesawatTua.size());
 
         }
 //        HashMap<String, List> hashHasil = new HashMap<>();

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,20 @@ public class PenerbanganServiceImpl implements PenerbanganService {
     @Override
     public List<PenerbanganModel> getlistPenerbangan() {
         return penerbanganDb.findAll();
+    }
+
+
+
+    @Override
+    public List<PenerbanganModel> getlistPenerbanganNoPesawat() {
+        List<PenerbanganModel> penerbanganModelList = penerbanganDb.findAll();
+        List<PenerbanganModel> listpenerbangan = new ArrayList<>();
+        for(PenerbanganModel penerbanganModel: penerbanganModelList){
+            if(penerbanganModel.getPesawat() == null){
+                listpenerbangan.add(penerbanganModel);
+            }
+        }
+        return listpenerbangan;
     }
 
     @Override

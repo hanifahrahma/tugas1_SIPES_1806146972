@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface PenerbanganService {
     List<PenerbanganModel> getlistPenerbangan();
+    List<PenerbanganModel> getlistPenerbanganNoPesawat();
     PenerbanganModel getPenerbanganbyid(Long id);
     void addPenerbangan(PenerbanganModel penerbanganModel);
     void deletePenerbangan(PenerbanganModel penerbanganModel);
