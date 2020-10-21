@@ -1,5 +1,9 @@
 package apap.tugas.sipes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,11 +15,15 @@ public class PesawatTeknisiModel implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idPesawat")
+    @JoinColumn(name = "idPesawat", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     PesawatModel pesawat;
 
     @ManyToOne
-    @JoinColumn(name = "idTeknisi")
+    @JoinColumn(name = "idTeknisi", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     TeknisiModel teknisi;
 
     public Long getId() {

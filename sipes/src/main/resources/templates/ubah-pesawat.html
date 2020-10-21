@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Hapus Penerbangan</title>
+    <title>Ubah Pesawat</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="row justify-content-md-center" style="margin-top: 5%;">
-    <h2 th:text="'Penerbangan ' + ${id} + ' berhasil dihapus.'"></h2>
+    <h2 th:text="'Pesawat ' + ${id} + ' berhasil diubah.'"></h2>
 </div>
 <div class="row justify-content-md-center">
-    <a th:href="@{/penerbangan/}">Kembali ke Daftar Penerbangan</a>
+    <a th:href="@{/pesawat/}">Kembali ke Daftar Penerbangan</a>
 </div>
 
 

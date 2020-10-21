@@ -12,6 +12,7 @@
     <h2 >Form Tambah Pesawat</h2>
 </div>
 <form  class="form-horizontal" th:action="@{/pesawat/tambah}" th:object="${pesawat}" method="POST">
+    <input type="hidden" th:field="*{id}"/>
     <div class="form-group">
         <label class="control-label col-sm-2" >Maskapai :</label>
         <div class="col-sm-10">
@@ -31,22 +32,39 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2" >Tipe :</label>
+        <label class="control-label col-sm-2" >Jenis :</label>
         <div class="col-sm-10">
-            <select class="form-control" th:field="*{tipe}" >
-            <option th:each="tipee : ${tipes}" th:value="${tipee}" th:text="${tipee.nama}"></option>
-            </select>
+    <select class="form-control" th:field="*{jenisPesawat}" >
+        <option value="">Pilih jenis pesawat</option>
+        <option value="Komersil">Komersil</option>
+        <option value="Militer">Militer</option>
+    </select>
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2" >Teknisi :</label>
+        <label class="control-label col-sm-2" >Tipe :</label>
         <div class="col-sm-10">
-            <select class="form-control" th:field="${pesawatteknisi.teknisi}" >
-                <option th:each="teknisi : ${teknisis}" th:value="${teknisi}" th:text="${teknisi.nama}"></option>
+            <select class="form-control" th:field="*{tipe}" >
+                <option value="">Pilih tipe pesawat</option>
+            <option th:each="tipee : ${tipes}" th:value="${tipee.id}" th:text="${tipee.nama}"></option>
             </select>
         </div>
     </div>
-
+    <div th:each="temp, itemStat : *{listpesawatteknisi}">
+    <div class="form-group" >
+<!--        <input type="hidden" th:field="*{listpesawatteknisi[__${itemStat.index}__].id}"/>-->
+        <label class="control-label col-sm-2" >Teknisi :</label>
+        <div class="col-sm-10">
+            <select class="form-control" th:field="*{listpesawatteknisi[__${itemStat.index}__].teknisi}" >
+                <option value="">Pilih teknisi</option>
+                <option th:each="teknisi : ${teknisis}" th:value="${teknisi.id}" th:text="${teknisi.nama}"></option>
+            </select>
+        </div>
+    </div>
+    </div>
+    </br>
+    <button type="submit" value="Submit" class="btn btn-primary" name="addItem">Tambah Teknisi</button>
+    </br>
     <a th:href="@{/pesawat/}" class="btn btn-light">Batal</a>
     <input name="save" value="Simpan" type="submit" class="btn btn-sm btn-success"/>
 

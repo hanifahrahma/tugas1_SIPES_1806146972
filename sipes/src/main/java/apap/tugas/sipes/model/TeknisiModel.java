@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,15 +24,7 @@ public class TeknisiModel  implements Serializable {
     private Long nomorTelepon;
 
     @OneToMany(mappedBy = "teknisi")
-    Set<PesawatTeknisiModel> listteknisipesawat;
-
-    public Long getIdTeknisi() {
-        return id;
-    }
-
-    public void setIdTeknisi(Long idTeknisi) {
-        this.id = idTeknisi;
-    }
+    private List<PesawatTeknisiModel> listteknisipesawat;
 
     public String getNama() {
         return nama;
@@ -47,6 +40,22 @@ public class TeknisiModel  implements Serializable {
 
     public void setNomorTelepon(Long nomorTelepon) {
         this.nomorTelepon = nomorTelepon;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<PesawatTeknisiModel> getListteknisipesawat() {
+        return listteknisipesawat;
+    }
+
+    public void setListteknisipesawat(List<PesawatTeknisiModel> listteknisipesawat) {
+        this.listteknisipesawat = listteknisipesawat;
     }
 }
 

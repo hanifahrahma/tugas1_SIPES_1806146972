@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PesawatTeknisiService {
     List<PesawatTeknisiModel> getListTeknisibyIdPesawat(PesawatModel pesawatModel);
+    void addPesawatTeknisi(PesawatTeknisiModel pesawatTeknisiModel);
 }

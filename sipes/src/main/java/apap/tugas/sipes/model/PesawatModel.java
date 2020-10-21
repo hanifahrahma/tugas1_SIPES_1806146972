@@ -58,7 +58,7 @@ public class PesawatModel implements Serializable {
     private List<PenerbanganModel> listpenerbangan;
 
     @OneToMany(mappedBy = "pesawat")
-    Set<PesawatTeknisiModel> listpesawatteknisi;
+    private List<PesawatTeknisiModel> listpesawatteknisi;
 
 
 
@@ -127,11 +127,11 @@ public class PesawatModel implements Serializable {
     }
 
 
-    public Set<PesawatTeknisiModel> getListpesawatteknisi() {
+    public List<PesawatTeknisiModel> getListpesawatteknisi() {
         return listpesawatteknisi;
     }
 
-    public void setListpesawatteknisi(Set<PesawatTeknisiModel> listpesawatteknisi) {
+    public void setListpesawatteknisi(List<PesawatTeknisiModel> listpesawatteknisi) {
         this.listpesawatteknisi = listpesawatteknisi;
     }
 }

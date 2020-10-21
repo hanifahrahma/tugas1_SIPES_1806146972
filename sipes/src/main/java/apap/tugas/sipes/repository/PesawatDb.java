@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 public interface PesawatDb extends JpaRepository<PesawatModel, Long> {
     Optional<PesawatModel> findById(Long id);
-//    List<PesawatModel> findAllByTanggalDibuatYearIsGreaterThan();
-
+//   List<PesawatModel> findAllByTanggalDibuat;
+    Optional<PesawatModel> findByNomorSeri(String nomorSeri);
 }

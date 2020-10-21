@@ -2,18 +2,18 @@
 <html lang="en" xmlns:th="http://thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>View All Pesawat</title>
+    <title>View All Pesawat Tua</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="row justify-content-md-center" style="margin-top: 5%;">
-    <h2 >Daftar Pesawat</h2>
+    <h2 >Daftar Pesawat Tua</h2>
 </div>
 
 <!--<a th:href="@{/pesawat/tambah}" class="btn btn-primary">+Tambah Pesawat</a>-->
-<table class="table" >
+<table align="center" class="table" style="margin-left: auto; margin-right: auto; width: auto;" >
     <thead>
     <tr>
         <th>No</th>
@@ -22,21 +22,20 @@
         <th>Tipe</th>
 
         <th>Usia</th>
-        <th>Aksi</th>
         <th></th>
     </tr>
     <tbody>
-    <tr th:each="pesawat, iterationStatus: ${listpesawattua}">
+    <tr th:each="pesawat, iterationStatus: ${listpesawat}">
         <td th:text="${iterationStatus.count}"></td>
         <td th:text="${pesawat.nomorSeri}"></td>
         <td th:text="${pesawat.jenisPesawat}"></td>
         <td th:text="${pesawat.tipe.nama}"></td>
-<!--        <div th:with="result=${${#dates.year(${pesawat.tanggalDibuat})} * ${year}}">-->
-<!--        <td th:text="${result}"></td>-->
-<!--        </div>-->
-        <td><a th:href="@{/pesawat/}+${pesawat.id}" class="btn btn-primary">Lihat</a></td>
-        <td><a th:href="@{/pesawat/ubah/}+${pesawat.id}" class="btn btn-warning">Ubah</a></td>
-        <td><a th:href="@{/pesawat/hapus/}+${pesawat.id}" class="btn btn-danger">Hapus</a></td>
+
+        <div th:with="result=${pesawat.tanggalDibuat}">
+            <div th:with="yearnow=${#dates.createNow()}">
+        <td th:text="${#dates.year(yearnow)}- ${#dates.year(result)}"></td>
+            </div>
+        </div>
         <!--                    <a th:href="@{/kamar/delete/}+${kamar.noKamar}">Delete Kamar</a>-->
     </tr>
     </tbody>

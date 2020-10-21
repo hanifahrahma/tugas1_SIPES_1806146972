@@ -1,5 +1,6 @@
 package apap.tugas.sipes.controller;
 
+import apap.tugas.sipes.model.PenerbanganModel;
 import apap.tugas.sipes.model.PesawatModel;
 import apap.tugas.sipes.model.PesawatTeknisiModel;
 import apap.tugas.sipes.repository.PesawatTeknisiDb;
@@ -13,9 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 @Controller
 public class PesawatController {
@@ -34,7 +35,6 @@ public class PesawatController {
 
     @GetMapping("/")
     private String home(){
-
         return "home";
     }
 
@@ -50,33 +50,70 @@ public class PesawatController {
         Calendar cal = Calendar.getInstance();
         cal.setTime(today);
         int year = cal.get(Calendar.YEAR);
-        model.addAttribute("listpesawat",pesawatService.getlistPesawatTua(today));
-//        model.addAttribute("year", year);
+//        HashMap<String, List> hashMapHasil = pesawatService.getlistPesawatTua(year);
+        List<PesawatModel> listpesawattua = pesawatService.getlistPesawatTua(year);
+        System.out.println(listpesawattua.size());
+//        List<String> listusia = hashMapHasil.get("listusia");
+
+        model.addAttribute("listpesawat",listpesawattua);
+//        model.addAttribute("listusia", listusia);
+        model.addAttribute("year", year);
         return "viewall-pesawat-tua";
     }
 
     @GetMapping("/pesawat/tambah")
-    public String addHotelFormPage(Model model){
+    public String addPesawatFormPage(Model model){
         PesawatModel pesawatModel = new PesawatModel();
+        PesawatTeknisiModel pesawatTeknisiModel = new PesawatTeknisiModel();
+        List<PesawatTeknisiModel> listpesawatteknisi = new ArrayList<>();
+        listpesawatteknisi.add(pesawatTeknisiModel);
+        pesawatModel.setListpesawatteknisi(listpesawatteknisi);
         model.addAttribute("pesawat", pesawatModel);
         model.addAttribute("tipes", tipeService.getlistTipe());
-        PesawatTeknisiModel pesawatTeknisiModel = new PesawatTeknisiModel();
-        pesawatTeknisiModel.setPesawat(pesawatModel);
-        model.addAttribute("pesawatteknisi", pesawatTeknisiModel);
         model.addAttribute("teknisis", teknisiService.getlistTeknisi());
         return "form-tambah-pesawat";
     }
 
-    @PostMapping("/pesawat/tambah")
-    public String addHotelSubmit(
+    @PostMapping(path = "/pesawat/tambah", params ="save")
+    public String addPesawatSubmit(
             @ModelAttribute PesawatModel pesawatModel,
             Model model
     ){
-//        SimpleDateFormat formaDate = new SimpleDateFormat("dd/MM/yyyy");
-
+        String noseri = pesawatService.getnoSeriPesawat(pesawatModel);
+        pesawatModel.setNomorSeri(noseri);
         pesawatService.addPesawat(pesawatModel);
-        model.addAttribute("id", pesawatModel.getId());
+        if(pesawatModel.getListpesawatteknisi() != null || pesawatModel.getListpesawatteknisi().size() !=0){
+            for(PesawatTeknisiModel pesawatTeknisiModel: pesawatModel.getListpesawatteknisi()){
+                pesawatTeknisiModel.setPesawat(pesawatModel);
+                pesawatTeknisiService.addPesawatTeknisi(pesawatTeknisiModel);
+            }
+        }
+        model.addAttribute("id", pesawatModel.getNomorSeri());
         return "tambah-pesawat";
+    }
+
+    @PostMapping(path="/pesawat/tambah", params={"addItem"})
+    public String addItem( @ModelAttribute PesawatModel pesawatModel, Model model) {
+        if(pesawatModel.getListpesawatteknisi() == null || pesawatModel.getListpesawatteknisi().size() == 0){
+            List<PesawatTeknisiModel> templist = new ArrayList<>();
+            pesawatModel.setListpesawatteknisi(templist);
+        }
+        PesawatTeknisiModel pesawatTeknisiModel = new PesawatTeknisiModel();
+        pesawatModel.getListpesawatteknisi().add(pesawatTeknisiModel);
+        model.addAttribute("pesawat", pesawatModel);
+        model.addAttribute("tipes", tipeService.getlistTipe());
+        model.addAttribute("teknisis", teknisiService.getlistTeknisi());
+        return "form-tambah-pesawat";
+    }
+
+    @GetMapping("/pesawat/hapus/{idPesawat}")
+    private String deletePesawat(@PathVariable Long idPesawat,
+                                             Model model) {
+        PesawatModel pesawatModel = pesawatService.getPesawatbyid(idPesawat);
+        String id = pesawatModel.getNomorSeri();
+        pesawatService.deletePesawat(pesawatModel);
+        model.addAttribute("id", id);
+        return "hapus-pesawat";
     }
 
     @GetMapping("/pesawat/{id}")
@@ -84,11 +121,33 @@ public class PesawatController {
             @PathVariable Long id,
             Model model
     ) {
-        PesawatModel pesawatModel = pesawatService.getPesawatbyid(id).get();
+        PesawatModel pesawatModel = pesawatService.getPesawatbyid(id);
         model.addAttribute("pesawat", pesawatModel);
         model.addAttribute("listteknisi", pesawatTeknisiService.getListTeknisibyIdPesawat(pesawatModel));
         return "view-pesawat";
     }
+    @GetMapping("/pesawat/ubah/{idPesawat}")
+    public String changePesawatFormPage(
+            @PathVariable Long idPesawat,
+            Model model
+    ){
+        PesawatModel pesawatModel = pesawatService.getPesawatbyid(idPesawat);
+        model.addAttribute("pesawat", pesawatModel);
+        model.addAttribute("tipes", tipeService.getlistTipe());
+        model.addAttribute("teknisis", teknisiService.getlistTeknisi());
+        return "form-ubah-pesawat";
+    }
+
+    @PostMapping("/pesawat/ubah")
+    public String changePesawatFormSubmit(
+            @ModelAttribute PesawatModel pesawatModel,
+            Model model
+    ){
+        PesawatModel updatePesawat = pesawatService.changePesawat(pesawatModel);
+        model.addAttribute("id", updatePesawat.getNomorSeri());
+        return "ubah-pesawat";
+    }
+
 
 //    @GetMapping("/pesawat/filter")
 //    public String viewDetailHotel(

@@ -21,4 +21,9 @@ public class PesawatTeknisiImpl implements PesawatTeknisiService {
         List<PesawatTeknisiModel> listteknisi = pesawatTeknisiDb.findPesawatTeknisiModelByPesawat(pesawatModel);
         return listteknisi;
     }
+
+    @Override
+    public void addPesawatTeknisi(PesawatTeknisiModel pesawatTeknisiModel) {
+        pesawatTeknisiDb.save(pesawatTeknisiModel);
+    }
 }
