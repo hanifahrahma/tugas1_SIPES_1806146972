@@ -11,24 +11,24 @@
 <div class="row justify-content-md-center" style="margin-top: 5%;">
     <h2 >Form Tambah Pesawat</h2>
 </div>
-<form  class="form-horizontal" th:action="@{/pesawat/tambah}" th:object="${pesawat}" method="POST">
+<form  class="form-horizontal" th:action="@{/pesawat/}" th:object="${pesawat}" method="POST">
     <input type="hidden" th:field="*{id}"/>
     <div class="form-group">
         <label class="control-label col-sm-2" >Maskapai :</label>
         <div class="col-sm-10">
-            <input class="form-control" th:field="*{maskapai}" type="text"/>
+            <input class="form-control" th:field="*{maskapai}" type="text" required>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" >Tanggal Dibuat :</label>
         <div class="col-sm-10">
-            <input class="form-control" th:field="*{tanggalDibuat}" type="date"/>
+            <input class="form-control" th:field="*{tanggalDibuat}" type="date" required>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" >Tempat Dibuat :</label>
         <div class="col-sm-10">
-            <input class="form-control" th:field="*{tempatDibuat}" type="text"/>
+            <input class="form-control" th:field="*{tempatDibuat}" type="text" required>
         </div>
     </div>
     <div class="form-group">

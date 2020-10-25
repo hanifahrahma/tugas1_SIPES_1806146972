@@ -38,13 +38,14 @@ public class PenerbanganController {
         model.addAttribute("penerbangan", penerbanganModel);
         return "form-tambah-penerbangan";
     }
-    @PostMapping(value = "/penerbangan/tambah", params = {"ubah"})
+    @PostMapping(value = "/penerbangan/tambah", params = {"save"})
     public String addPenerbanganSubmit(
             @ModelAttribute PenerbanganModel penerbanganModel,
             Model model
     ){
 //        SimpleDateFormat formaDate = new SimpleDateFormat("dd/MM/yyyy");
-        penerbanganService.addPenerbangan(penerbanganModel);
+        boolean bool = penerbanganService.addPenerbangan(penerbanganModel);
+        model.addAttribute("bool", bool);
         model.addAttribute("id", penerbanganModel.getNomorPenerbangan());
         return "tambah-penerbangan";
     }

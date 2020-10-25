@@ -9,7 +9,7 @@
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="row justify-content-md-center" style="margin-top: 5%;">
-    <h2 th:text="'Pesawat ' + ${id} + ' berhasil diubah.'"></h2>
+    <h2 th:text="'Pesawat ' + ${id} + ' dengan tipe '+ ${tipe.nama} + ' berhasil diubah.'"></h2>
 </div>
 <div class="row justify-content-md-center">
     <a th:href="@{/pesawat/}">Kembali ke Daftar Penerbangan</a>

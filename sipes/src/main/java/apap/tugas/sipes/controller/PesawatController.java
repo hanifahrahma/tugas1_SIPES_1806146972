@@ -74,7 +74,7 @@ public class PesawatController {
         return "form-tambah-pesawat";
     }
 
-    @PostMapping(path = "/pesawat/tambah", params ="save")
+    @PostMapping(path = "/pesawat/", params ="save")
     public String addPesawatSubmit(
             @ModelAttribute PesawatModel pesawatModel,
             Model model
@@ -178,6 +178,7 @@ public class PesawatController {
     ){
         PesawatModel updatePesawat = pesawatService.changePesawat(pesawatModel);
         model.addAttribute("id", updatePesawat.getNomorSeri());
+        model.addAttribute("tipe", updatePesawat.getTipe());
         return "ubah-pesawat";
     }
 

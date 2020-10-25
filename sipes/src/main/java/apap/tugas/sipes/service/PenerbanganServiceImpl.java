@@ -41,8 +41,13 @@ public class PenerbanganServiceImpl implements PenerbanganService {
     }
 
     @Override
-    public void addPenerbangan(PenerbanganModel penerbanganModel) {
-        penerbanganDb.save(penerbanganModel);
+    public boolean addPenerbangan(PenerbanganModel penerbanganModel) {
+        PenerbanganModel penerbanganModel1 = penerbanganDb.findByNomorPenerbangan(penerbanganModel.getNomorPenerbangan()).get();
+        if(penerbanganModel1 == null) {
+            penerbanganDb.save(penerbanganModel);
+            return true;
+        }
+        return false;
     }
 
     @Override
