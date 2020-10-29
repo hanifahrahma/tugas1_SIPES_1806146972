@@ -5,71 +5,72 @@
     <title>View Pesawat</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: style" th:remove="tag"></object>
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
-<div class="row justify-content-md-center" style="margin-top: 5%;">
-    <h2 >Detail Pesawat</h2>
-</div>
-<div class="row justify-content-md-center">
-    <div class="col col-lg-2" style="font-weight: bold;">
-        <p>Nomor Seri Pesawat</p>
+    <div class="row justify-content-md-center" style="margin-top: 5%;">
+        <h2 style="margin-bottom: 1rem;">Detail Pesawat</h2>
     </div>
-    <div class="col col-lg-2">
-        <p th:text="${pesawat.nomorSeri}"></p>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-2" style="font-weight: bold;">
+            <p>Nomor Seri Pesawat</p>
+        </div>
+        <div class="col col-lg-2">
+            <p th:text="${pesawat.nomorSeri}"></p>
+        </div>
     </div>
-</div>
-<div class="row justify-content-md-center">
-    <div class="col col-lg-2" style="font-weight: bold;">
-        <p>Jenis Pesawat</p>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-2" style="font-weight: bold;">
+            <p>Jenis Pesawat</p>
+        </div>
+        <div class="col col-lg-2">
+            <p th:text="${pesawat.jenisPesawat}"></p>
+        </div>
     </div>
-    <div class="col col-lg-2">
-        <p th:text="${pesawat.jenisPesawat}"></p>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-2" style="font-weight: bold;">
+            <p>Nama Tipe Pesawat</p>
+        </div>
+        <div class="col col-lg-2">
+            <p th:text="${pesawat.tipe.nama}"></p>
+        </div>
     </div>
-</div>
-<div class="row justify-content-md-center">
-    <div class="col col-lg-2" style="font-weight: bold;">
-        <p>Nama Tipe Pesawat</p>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-2" style="font-weight: bold;">
+            <p>Maskapai</p>
+        </div>
+        <div class="col col-lg-2">
+            <p th:text="${pesawat.maskapai}"></p>
+        </div>
     </div>
-    <div class="col col-lg-2">
-        <p th:text="${pesawat.tipe.nama}"></p>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-2" style="font-weight: bold;">
+            <p>Tempat dibuat</p>
+        </div>
+        <div class="col col-lg-2">
+            <p th:text="${pesawat.tempatDibuat}"></p>
+        </div>
     </div>
-</div>
-<div class="row justify-content-md-center">
-    <div class="col col-lg-2" style="font-weight: bold;">
-        <p>Maskapai</p>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-2" style="font-weight: bold;">
+            <p>Tanggal Dibuat</p>
+        </div>
+        <div class="col col-lg-2">
+            <p th:text="${pesawat.tanggalDibuat}"></p>
+        </div>
     </div>
-    <div class="col col-lg-2">
-        <p th:text="${pesawat.maskapai}"></p>
-    </div>
-</div>
-<div class="row justify-content-md-center">
-    <div class="col col-lg-2" style="font-weight: bold;">
-        <p>Tempat dibuat</p>
-    </div>
-    <div class="col col-lg-2">
-        <p th:text="${pesawat.tempatDibuat}"></p>
-    </div>
-</div>
-<div class="row justify-content-md-center">
-    <div class="col col-lg-2" style="font-weight: bold;">
-        <p>Tanggal Dibuat</p>
-    </div>
-    <div class="col col-lg-2">
-        <p th:text="${pesawat.tanggalDibuat}"></p>
-    </div>
-</div>
-<div class="row justify-content-md-center">
+
+<div class="row justify-content-md-center" style="margin-top: 1rem;">
     <h2 >Detail Teknisi Pesawat</h2>
 </div>
-<table align="center" class="table" style="margin-left: auto; margin-right: auto; width: auto;">
+<table align="center" class="table" style="margin-left: auto; margin-right: auto; width: auto; margin-top: 1rem">
     <thead>
-    <tr>
-        <th>No</th>
-        <th>Nama</th>
-        <th>Nomor Telepon</th>
+    <tr style="background-color:#329ec8">
+        <th scope="col" style="color:white">No</th>
+        <th scope="col" style="color:white">Nama</th>
+        <th scope="col" style="color:white">Nomor Telepon</th>
 
-        <th></th>
     </tr>
     <tbody>
     <tr th:each="t, iterationStatus: ${listteknisi}">

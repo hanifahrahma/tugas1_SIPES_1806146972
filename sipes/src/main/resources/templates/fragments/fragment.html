@@ -13,9 +13,17 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/esm/popper.min.js"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
     </head>
+    <head th:fragment="style">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&amp;display=swap" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Poppins';
+            }
+        </style>
+    </head>
 </head>
 <body>
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark" style="background-color:#329ec8">
     <a th:text="SIPESAWAT" class="navbar-brand font-weight-bold text-white" th:href="@{/}"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="toggle navigation">

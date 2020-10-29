@@ -5,27 +5,29 @@
     <title>View All Penerbangan</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: style" th:remove="tag"></object>
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="row justify-content-md-center" style="margin-top: 5%;">
     <h2 >Daftar Penerbangan</h2>
 </div>
-<a th:href="@{/penerbangan/tambah}" class="btn btn-primary">+Tambah Penerbangan</a>
-</br>
-<table class="table">
+<a th:href="@{/penerbangan/tambah}" style="background-color:#329ec8; color: white" class="btn ">+Tambah Penerbangan</a>
+
+<table class="table" style="margin-top: 1rem">
     <thead>
-    <tr>
-        <th>No</th>
-        <th>Kode Penerbangan</th>
-        <th>Bandara Asal</th>
-        <th>Bandara Tujuan</th>
-        <th>Waktu Berangkat</th>
-        <th>Aksi</th>
-        <th></th>
+    <tr style="background-color:#329ec8">
+        <th scope="col" style="color:white">No</th>
+        <th scope="col" style="color:white">Kode Penerbangan</th>
+        <th scope="col" style="color:white">Bandara Asal</th>
+        <th scope="col" style="color:white">Bandara Tujuan</th>
+        <th scope="col" style="color:white">Waktu Berangkat</th>
+        <th scope="col" style="color:white">Aksi</th>
+        <th scope="col" style="color:white"></th>
+        <th scope="col" style="color:white"></th>
     </tr>
     <tbody>
-    <tr th:each="p, iterationStatus: ${listpenerbangan}">
+    <tr th:each="p, iterationStatus: ${listpenerbangan}" >
         <td th:text="${iterationStatus.count}"></td>
         <td th:text="${p.nomorPenerbangan}"></td>
         <td th:text="${p.kodeBandaraAsal}"></td>

@@ -134,8 +134,9 @@ public class PesawatController {
     ) {
         PesawatModel pesawatModel = pesawatService.getPesawatbyid(id);
 //        PenerbanganModel penerbanganModel = new PenerbanganModel();
-//        List<PenerbanganModel> listpenerbangan = new ArrayList<>();
-//        pesawatModel.setListpenerbangan(listpenerbangan);
+        List<PenerbanganModel> listpenerbangan = new ArrayList<>();
+        pesawatModel.setListpenerbangan(listpenerbangan);
+
         model.addAttribute("pesawat", pesawatModel);
         model.addAttribute("listteknisi", pesawatTeknisiService.getListTeknisibyIdPesawat(pesawatModel));
         model.addAttribute("listpenerbangan", penerbanganService.getlistPenerbanganNoPesawat());
@@ -149,9 +150,11 @@ public class PesawatController {
             @ModelAttribute PenerbanganModel penerbanganModel,
             Model model
     ){
+        System.out.println("sfgsdf");
         PesawatModel pesawatModel = pesawatService.getPesawatbyid(id);
-        penerbanganModel.setPesawat(pesawatModel);
-        pesawatModel.getListpenerbangan().add(penerbanganModel);
+        penerbanganService.changePesawatinPenerbangan(pesawatModel);
+        List<PenerbanganModel> listpenerbangan = new ArrayList<>();
+        pesawatModel.setListpenerbangan(listpenerbangan);
         model.addAttribute("pesawat", pesawatModel);
         model.addAttribute("listteknisi", pesawatTeknisiService.getListTeknisibyIdPesawat(pesawatModel));
         model.addAttribute("listpenerbangan", penerbanganService.getlistPenerbanganNoPesawat());

@@ -1,6 +1,7 @@
 package apap.tugas.sipes.service;
 
 import apap.tugas.sipes.model.PenerbanganModel;
+import apap.tugas.sipes.model.PesawatModel;
 import apap.tugas.sipes.repository.PenerbanganDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,12 @@ public class PenerbanganServiceImpl implements PenerbanganService {
         }
     }
 
-
+    @Override
+    public void changePesawatinPenerbangan(PesawatModel pesawatModel) {
+        PenerbanganModel penerbanganModel = pesawatModel.getListpenerbangan().get(0);
+        System.out.println("sadgjhadsf");
+        System.out.println(penerbanganModel.getNomorPenerbangan());
+        penerbanganModel.setPesawat(pesawatModel);
+        penerbanganDb.save(penerbanganModel);
+    }
 }

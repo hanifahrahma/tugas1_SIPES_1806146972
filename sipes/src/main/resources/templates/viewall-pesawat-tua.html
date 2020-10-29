@@ -5,6 +5,7 @@
     <title>View All Pesawat Tua</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: style" th:remove="tag"></object>
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
@@ -13,16 +14,15 @@
 </div>
 
 <!--<a th:href="@{/pesawat/tambah}" class="btn btn-primary">+Tambah Pesawat</a>-->
-<table align="center" class="table" style="margin-left: auto; margin-right: auto; width: auto;" >
+<table align="center" class="table" style="margin-left: auto; margin-right: auto; width: auto; margin-top: 1rem" >
     <thead>
-    <tr>
-        <th>No</th>
-        <th>Nomor Seri</th>
-        <th>Jenis</th>
-        <th>Tipe</th>
+    <tr style="background-color:#329ec8">
+        <th scope="col" style="color:white">No</th>
+        <th scope="col" style="color:white">Nomor Seri</th>
+        <th scope="col" style="color:white">Jenis</th>
+        <th scope="col" style="color:white">Tipe</th>
+        <th scope="col" style="color:white">Usia</th>
 
-        <th>Usia</th>
-        <th></th>
     </tr>
     <tbody>
     <tr th:each="pesawat, iterationStatus: ${listpesawat}">
