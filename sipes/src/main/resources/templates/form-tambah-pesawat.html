@@ -12,7 +12,7 @@
 <div class="row justify-content-md-center" style="margin-top: 5%;">
     <h2 >Form Tambah Pesawat</h2>
 </div>
-<form  class="form-horizontal" th:action="@{/pesawat/}" th:object="${pesawat}" method="POST">
+<form  class="form-horizontal" th:action="@{/pesawat/tambah}" th:object="${pesawat}" method="POST">
     <input type="hidden" th:field="*{id}"/>
     <div class="form-group">
         <label class="control-label col-sm-2" >Maskapai :</label>
@@ -67,7 +67,7 @@
     <button type="submit" value="Submit" class="btn btn-primary" name="addItem">Tambah Teknisi</button>
     </br>
     <a th:href="@{/pesawat/}" class="btn btn-light">Batal</a>
-    <input name="save" value="Simpan" type="submit" class="btn btn-sm btn-success"/>
+    <input name="simpan" type="submit" class="btn btn-sm btn-success"/>
 
 </form>
 

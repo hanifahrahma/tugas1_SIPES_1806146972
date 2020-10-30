@@ -43,8 +43,8 @@ public class PenerbanganServiceImpl implements PenerbanganService {
 
     @Override
     public boolean addPenerbangan(PenerbanganModel penerbanganModel) {
-        PenerbanganModel penerbanganModel1 = penerbanganDb.findByNomorPenerbangan(penerbanganModel.getNomorPenerbangan()).get();
-        if(penerbanganModel1 == null) {
+        Optional<PenerbanganModel> penerbanganModel1 = penerbanganDb.findByNomorPenerbangan(penerbanganModel.getNomorPenerbangan());
+        if(!penerbanganModel1.isPresent()) {
             penerbanganDb.save(penerbanganModel);
             return true;
         }
@@ -71,12 +71,11 @@ public class PenerbanganServiceImpl implements PenerbanganService {
         }
     }
 
-    @Override
-    public void changePesawatinPenerbangan(PesawatModel pesawatModel) {
-        PenerbanganModel penerbanganModel = pesawatModel.getListpenerbangan().get(0);
-        System.out.println("sadgjhadsf");
-        System.out.println(penerbanganModel.getNomorPenerbangan());
-        penerbanganModel.setPesawat(pesawatModel);
-        penerbanganDb.save(penerbanganModel);
-    }
+//    @Override
+//    public void changePesawatinPenerbangan(PenerbanganModel penerbanganModel) {
+//        PenerbanganModel targetPenerbangan = penerbanganDb.findById(penerbanganModel.getId()).get();
+//        targetPenerbangan.setPesawat(penerbanganModel.getPesawat());
+//
+//        penerbanganDb.save(targetPenerbangan);
+//    }
 }

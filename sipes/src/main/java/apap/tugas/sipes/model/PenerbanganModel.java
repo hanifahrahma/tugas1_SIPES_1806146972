@@ -35,8 +35,8 @@ public class PenerbanganModel implements Serializable {
     private String kodeBandaraTujuan;
 
     @NotNull
-//    @Temporal(TemporalType.TIMESTAMP)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.DATE)
     @Column(name = "waktuBerangkat", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date waktuBerangkat;
@@ -93,5 +93,6 @@ public class PenerbanganModel implements Serializable {
     public void setNomorPenerbangan(String nomorPenerbangan) {
         this.nomorPenerbangan = nomorPenerbangan;
     }
+
 }
 

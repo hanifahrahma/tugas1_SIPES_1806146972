@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>View All Pesawat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: style" th:remove="tag"></object>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 5%">
+    <div class=" border bg-light mt-2 mb-1" style="border-radius:30px;padding:1rem 6rem 1rem 6rem">
+        <div class="row justify-content-md-center">
+        <h3 class="font-weight-bold">Cari Pesawat</h3>
+        </div>
+        <div class="row justify-content-md-center">
+                <p style="margin-bottom: 0!important;">Penerbangan</p>
+        </div>
+        <div id="hayo" class="row justify-content-md-center">
+<!--        <select class="form-control" >-->
+<!--            <option value="">Pilih penerbangan</option>-->
+<!--            <option th:each="p : ${listpenerbangan}" th:value="${p.id}" th:text="${p.nomorPenerbangan}"></option>-->
+<!--        </select>-->
+        </div>
+
+        <div class="row justify-content-md-center">
+            <p style="margin-top: 1rem; margin-bottom: 0!important;">Tipe</p>
+        </div>
+        <div class="row justify-content-md-center">
+            <select class="form-control" >
+                <option value="">Pilih tipe pesawat</option>
+                <option th:each="p : ${listtipe}" th:value="${p.id}" th:text="${p.nama}"></option>
+            </select>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <p style="margin-top: 1rem; margin-bottom: 0!important;">Teknisi</p>
+        </div>
+        <div class="row justify-content-md-center">
+            <select class="form-control"  >
+                <option value="">Pilih teknisi</option>
+                <option th:each="p : ${listteknisi}" th:value="${p.id}" th:text="${p.nama}"></option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+
+<table id="example" class="table" style="margin-top: 1rem">
+    <thead>
+    <tr style="background-color:#329ec8">
+        <th scope="col" style="color:white">No</th>
+        <th scope="col" style="color:white">Nomor Seri</th>
+        <th scope="col" style="color:white">Jenis Pesawat</th>
+        <th scope="col" style="color:white">Tipe Pesawat</th>
+        <th scope="col" style="color:white">Maskapai</th>
+        <th scope="col" style="color:white">List Penerbangan</th>
+        <th scope="col" style="color:white">List Teknisi</th>
+    </tr>
+    <tbody>
+<!--    <tr th:each="pesawat, iterationStatus: ${listpesawat}">-->
+<!--        <td th:text="${iterationStatus.count}"></td>-->
+<!--        <td th:text="${pesawat.nomorSeri}"></td>-->
+<!--        <td th:text="${pesawat.jenisPesawat}"></td>-->
+<!--        <td th:text="${pesawat.tipe.nama}"></td>-->
+<!--        <td th:text="${pesawat.maskapai}"></td>-->
+<!--        <td>-->
+<!--            <ul th:each="a, iterationStatus: ${pesawat.listpenerbangan}">-->
+<!--                <li th:text="${a.nomorPenerbangan}"></li>-->
+<!--            </ul>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <ul th:each="a, iterationStatus: ${pesawat.listpesawatteknisi}">-->
+<!--                <li th:text="${a.teknisi.nama}"></li>-->
+<!--            </ul>-->
+<!--        </td>-->
+<!--    </tr>-->
+
+    <span th:each="pesawat, iterationStatus: ${listpesawat}">
+        <span th:with="result=${pesawat.listpenerbangan}">
+            <span th:with="size=${#lists.size(result)}">
+                <span th:if="${size == 0}">
+                    <tr th:each="t, it: ${pesawat.listpesawatteknisi}">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${pesawat.nomorSeri}"></td>
+                        <td th:text="${pesawat.jenisPesawat}"></td>
+                        <td th:text="${pesawat.tipe.nama}"></td>
+                        <td th:text="${pesawat.maskapai}"></td>
+                        <td></td>
+                        <td th:text="${t.teknisi.nama}"></td>
+                    </tr>
+                </span>
+                <span th:unless="${size == 0}">
+                    <span th:each="p, it: ${pesawat.listpenerbangan}">
+                    <tr th:each="t, it: ${pesawat.listpesawatteknisi}">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${pesawat.nomorSeri}"></td>
+                        <td th:text="${pesawat.jenisPesawat}"></td>
+                        <td th:text="${pesawat.tipe.nama}"></td>
+                        <td th:text="${pesawat.maskapai}"></td>
+                        <td th:text="${p.nomorPenerbangan}"></td>
+                        <td th:text="${t.teknisi.nama}"></td>
+                    </tr>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </span>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    </tfoot>
+    </thead>
+</table>
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        initComplete: function () {
+            this.api().columns([2, 3, 5, 6]).every( function () {
+            var column = this;
+            var select = $('<select><option value=""></option></select>')
+                .appendTo( $(column.footer()).empty() )
+    .on( 'change', function () {
+    var val = $.fn.dataTable.util.escapeRegex(
+    $(this).val()
+    );
+
+    column
+    .search( val ? '^'+val+'$' : '', true, false )
+    .draw();
+    } );
+
+    column.data().unique().sort().each( function ( d, j ) {
+    select.append( '<option value="'+d+'">'+d+'</option>' )
+    } );
+    } );
+    }
+    } );
+    } );
+</script>
+</div>
+</body>
+<footer>
+
+</footer>
+</html>

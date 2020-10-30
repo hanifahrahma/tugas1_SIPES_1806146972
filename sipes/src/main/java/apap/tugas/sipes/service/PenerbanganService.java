@@ -13,5 +13,5 @@ public interface PenerbanganService {
     boolean addPenerbangan(PenerbanganModel penerbanganModel);
     void deletePenerbangan(PenerbanganModel penerbanganModel);
     PenerbanganModel changePenerbangan(PenerbanganModel penerbanganModel);
-    void changePesawatinPenerbangan(PesawatModel pesawatModel);
+//    void changePesawatinPenerbangan(PenerbanganModel penerbanganModel);
 }

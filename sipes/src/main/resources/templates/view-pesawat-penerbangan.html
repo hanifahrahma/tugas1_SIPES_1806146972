@@ -86,18 +86,20 @@
 
         <div class="col-8">
             <p class="font-weight-bold text-center mb-1">Detail Pesawat Penerbangan</p>
-            <form class="m-1">
+            <form  class="m-1" th:action="@{/pesawat/}+${pesawat.id}+@{/tambah-penerbangan}" th:object="${penerbangan}" method="POST">
                 <div class="d-flex flex-column align-items-end">
                     <div class="d-flex flex-column align-items-start">
                         <label>Tambah Penerbangan</label>
                         <div class="d-flex flex-row">
-                            <form  class="form-control" th:action="@{/pesawat/{id}/tambah-penerbangan(id = ${pesawat.id})}" th:object="${pesawat}" method="POST">
-                                <select class="form-control" th:field="*{listpenerbangan}" >
+<!--                            <form  class="form-control" th:action="@{/pesawat/{id}/tambah-penerbangan(id = ${pesawat.id})}" th:object="${pesawat}" method="POST">-->
+<!--                                <div th:each="temp, itemStat : *{listpenerbangan}">-->
+                                <select class="form-control" th:field="*{id}" >
                                     <option value="">Pilih penerbangan</option>
-                                    <option th:each="p : ${listpenerbangan}" th:value="${p.id}" th:text="${p.nomorPenerbangan}"></option>
+                                    <option th:each="p : ${listpenerbangan2}" th:value="${p.id}" th:text="${p.nomorPenerbangan}"></option>
                                 </select>
-                                <input name="save" value="Tambah" type="submit" class="btn btn-primary ml-2" />
-                            </form>
+<!--                                </div>-->
+<!--                                <input value="Tambah" type="submit" class="btn btn-primary ml-2" />-->
+                                <button type="submit" class="btn btn-primary ml-2"> Tambah </button>
 
                         </div>
                     </div>
@@ -117,12 +119,13 @@
                 <tr th:each="t, iterationStatus: ${listpenerbanganpesawat}">
                     <td th:text="${iterationStatus.count}"></td>
                     <td th:text="${t.nomorPenerbangan}"></td>
-                    <td th:text="${t.bandaraAsal}"></td>
-                    <td th:text="${t.bandaraTujuan}"></td>
+                    <td th:text="${t.kodeBandaraAsal}"></td>
+                    <td th:text="${t.kodeBandaraTujuan}"></td>
                     <td th:text="${t.waktuBerangkat}"></td>
                 </tr>
                 </tbody>
             </table>
+            <p class="font-weight-bold text-center mb-1" style="color: #1c7430;" th:text="${msg}"></p>
         </div>
     </div>
 </div>

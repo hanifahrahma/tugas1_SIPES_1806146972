@@ -60,7 +60,12 @@
             <p th:text="${pesawat.tanggalDibuat}"></p>
         </div>
     </div>
-
+<div class="row justify-content-md-center" style="margin-top: 1rem;">
+<!--<form   th:action="@{/pesawat/}+${pesawat.id}+@{/tambah-penerbangan}" th:object="${pesawat}" method="POST">-->
+<!--    <input value="+Tambah Penerbangan" type="submit" class="btn ml-2" style="background-color:#329ec8; color: white" />-->
+<!--</form>-->
+    <a th:href="@{/pesawat/}+${pesawat.id}+@{/tambah-penerbangan}" class="btn ml-2" style="background-color:#329ec8; color: white" >+Tambah Penerbangan </a>
+</div>
 <div class="row justify-content-md-center" style="margin-top: 1rem;">
     <h2 >Detail Teknisi Pesawat</h2>
 </div>

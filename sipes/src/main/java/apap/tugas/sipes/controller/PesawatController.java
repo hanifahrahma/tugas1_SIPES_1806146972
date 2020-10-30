@@ -74,7 +74,7 @@ public class PesawatController {
         return "form-tambah-pesawat";
     }
 
-    @PostMapping(path = "/pesawat/", params ="save")
+    @PostMapping(path = "/pesawat/tambah", params ="simpan")
     public String addPesawatSubmit(
             @ModelAttribute PesawatModel pesawatModel,
             Model model
@@ -128,37 +128,54 @@ public class PesawatController {
     }
 
     @GetMapping("/pesawat/{id}/tambah-penerbangan")
-    public String tambahPenerbangan(
+    public String addPenerbangan(
             @PathVariable Long id,
             Model model
     ) {
         PesawatModel pesawatModel = pesawatService.getPesawatbyid(id);
-//        PenerbanganModel penerbanganModel = new PenerbanganModel();
-        List<PenerbanganModel> listpenerbangan = new ArrayList<>();
-        pesawatModel.setListpenerbangan(listpenerbangan);
+//        List<PenerbanganModel> listpenerbangan = new ArrayList<>();
+        PenerbanganModel penerbanganModel1 = new PenerbanganModel();
 
+//        pesawatModel.setListpenerbangan(listpenerbangan);
+        String msg = "";
+        System.out.println("awal bgt");
         model.addAttribute("pesawat", pesawatModel);
+        model.addAttribute("penerbangan", penerbanganModel1);
         model.addAttribute("listteknisi", pesawatTeknisiService.getListTeknisibyIdPesawat(pesawatModel));
-        model.addAttribute("listpenerbangan", penerbanganService.getlistPenerbanganNoPesawat());
+        model.addAttribute("listpenerbangan2", penerbanganService.getlistPenerbanganNoPesawat());
         model.addAttribute("listpenerbanganpesawat", pesawatService.getlistPenerbanganPesawat(pesawatModel));
+        model.addAttribute("msg", msg);
         return "view-pesawat-penerbangan";
     }
 
-    @PostMapping(path = "/pesawat/{id}/tambah-penerbangan", params ="save")
+    @PostMapping("/pesawat/{id}/tambah-penerbangan")
     public String addPenerbanganSubmit(
             @PathVariable Long id,
             @ModelAttribute PenerbanganModel penerbanganModel,
             Model model
     ){
-        System.out.println("sfgsdf");
+
         PesawatModel pesawatModel = pesawatService.getPesawatbyid(id);
-        penerbanganService.changePesawatinPenerbangan(pesawatModel);
-        List<PenerbanganModel> listpenerbangan = new ArrayList<>();
-        pesawatModel.setListpenerbangan(listpenerbangan);
+        PenerbanganModel penerbanganModel1 = penerbanganService.getPenerbanganbyid(penerbanganModel.getId());
+        String msg = "";
+        if(penerbanganModel.getId() != null) {
+            pesawatModel.getListpenerbangan().add(penerbanganModel1);
+            penerbanganModel1.setPesawat(pesawatModel);
+            penerbanganService.changePenerbangan(penerbanganModel1);
+            msg = "Penerbangan dengan nomor ".concat(penerbanganModel1.getNomorPenerbangan()).concat(" berhasil ditambahkan.");
+        }
+        else {
+            msg = "Penerbangan gagal ditambahkan.";
+        }
+        PenerbanganModel penerbanganModel2 = new PenerbanganModel();
+
+        model.addAttribute("msg", msg);
         model.addAttribute("pesawat", pesawatModel);
+        model.addAttribute("penerbangan", penerbanganModel2);
         model.addAttribute("listteknisi", pesawatTeknisiService.getListTeknisibyIdPesawat(pesawatModel));
-        model.addAttribute("listpenerbangan", penerbanganService.getlistPenerbanganNoPesawat());
+        model.addAttribute("listpenerbangan2", penerbanganService.getlistPenerbanganNoPesawat());
         model.addAttribute("listpenerbanganpesawat", pesawatService.getlistPenerbanganPesawat(pesawatModel));
+//        return addPenerbangan(pesawatModel.getId(), model);
         return "view-pesawat-penerbangan";
     }
 
@@ -186,15 +203,26 @@ public class PesawatController {
     }
 
 
-//    @GetMapping("/pesawat/filter")
-//    public String viewDetailHotel(
-//            @RequestParam(value = "idPenerbangan", required = false) Long idPenerbangan,
-//            @RequestParam(value = "idTipe", required = false) Long idTipe,
-//            @RequestParam(value = "idTeknisi", required = false) Long idTeknisi,
-//            Model model
-//    ) {
-//        if(idPenerbangan == 0){
-//            return "error-hotel";
-//        }
-//    }
+    @GetMapping("/pesawat/filter")
+    public String viewFilter(
+            @RequestParam(value = "idPenerbangan", required = false) Long idPenerbangan,
+            @RequestParam(value = "idTipe", required = false) Long idTipe,
+            @RequestParam(value = "idTeknisi", required = false) Long idTeknisi,
+            Model model
+    ) {
+        model.addAttribute("listpesawat", pesawatService.getlistPesawat());
+        model.addAttribute("listpenerbangan", penerbanganService.getlistPenerbangan());
+        model.addAttribute("listteknisi", teknisiService.getlistTeknisi());
+        model.addAttribute("listtipe", tipeService.getlistTipe());
+        return "view-filter";
+    }
+
+    @GetMapping("/bonus")
+    public String bonus(
+            Model model
+    ) {
+        model.addAttribute("listpesawat", pesawatService.getlistPesawat());
+        return "view-bonus";
+    }
+
 }
