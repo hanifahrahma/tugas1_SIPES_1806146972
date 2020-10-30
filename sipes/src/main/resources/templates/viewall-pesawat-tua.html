@@ -31,11 +31,11 @@
         <td th:text="${pesawat.jenisPesawat}"></td>
         <td th:text="${pesawat.tipe.nama}"></td>
 
-        <div th:with="result=${pesawat.tanggalDibuat}">
-            <div th:with="yearnow=${#dates.createNow()}">
+        <span th:with="result=${pesawat.tanggalDibuat}">
+            <span th:with="yearnow=${#dates.createNow()}">
         <td th:text="${#dates.year(yearnow)}- ${#dates.year(result)}"></td>
-            </div>
-        </div>
+            </span>
+        </span>
         <!--                    <a th:href="@{/kamar/delete/}+${kamar.noKamar}">Delete Kamar</a>-->
     </tr>
     </tbody>

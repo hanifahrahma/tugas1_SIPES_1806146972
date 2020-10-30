@@ -18,35 +18,6 @@
         <div class="row justify-content-md-center">
         <h3 class="font-weight-bold">Cari Pesawat</h3>
         </div>
-        <div class="row justify-content-md-center">
-                <p style="margin-bottom: 0!important;">Penerbangan</p>
-        </div>
-        <div id="hayo" class="row justify-content-md-center">
-<!--        <select class="form-control" >-->
-<!--            <option value="">Pilih penerbangan</option>-->
-<!--            <option th:each="p : ${listpenerbangan}" th:value="${p.id}" th:text="${p.nomorPenerbangan}"></option>-->
-<!--        </select>-->
-        </div>
-
-        <div class="row justify-content-md-center">
-            <p style="margin-top: 1rem; margin-bottom: 0!important;">Tipe</p>
-        </div>
-        <div class="row justify-content-md-center">
-            <select class="form-control" >
-                <option value="">Pilih tipe pesawat</option>
-                <option th:each="p : ${listtipe}" th:value="${p.id}" th:text="${p.nama}"></option>
-            </select>
-        </div>
-
-        <div class="row justify-content-md-center">
-            <p style="margin-top: 1rem; margin-bottom: 0!important;">Teknisi</p>
-        </div>
-        <div class="row justify-content-md-center">
-            <select class="form-control"  >
-                <option value="">Pilih teknisi</option>
-                <option th:each="p : ${listteknisi}" th:value="${p.id}" th:text="${p.nama}"></option>
-            </select>
-        </div>
     </div>
 </div>
 
@@ -64,30 +35,15 @@
         <th scope="col" style="color:white">List Teknisi</th>
     </tr>
     <tbody>
-<!--    <tr th:each="pesawat, iterationStatus: ${listpesawat}">-->
-<!--        <td th:text="${iterationStatus.count}"></td>-->
-<!--        <td th:text="${pesawat.nomorSeri}"></td>-->
-<!--        <td th:text="${pesawat.jenisPesawat}"></td>-->
-<!--        <td th:text="${pesawat.tipe.nama}"></td>-->
-<!--        <td th:text="${pesawat.maskapai}"></td>-->
-<!--        <td>-->
-<!--            <ul th:each="a, iterationStatus: ${pesawat.listpenerbangan}">-->
-<!--                <li th:text="${a.nomorPenerbangan}"></li>-->
-<!--            </ul>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <ul th:each="a, iterationStatus: ${pesawat.listpesawatteknisi}">-->
-<!--                <li th:text="${a.teknisi.nama}"></li>-->
-<!--            </ul>-->
-<!--        </td>-->
-<!--    </tr>-->
-
+    <span th:with="count=0">
     <span th:each="pesawat, iterationStatus: ${listpesawat}">
         <span th:with="result=${pesawat.listpenerbangan}">
             <span th:with="size=${#lists.size(result)}">
                 <span th:if="${size == 0}">
                     <tr th:each="t, it: ${pesawat.listpesawatteknisi}">
-                        <td th:text="${iterationStatus.count}"></td>
+<!--                        <div th:with="count=${count+1}">-->
+                        <td  th:text="${#ids.seq('')}"></td>
+<!--                        </div>-->
                         <td th:text="${pesawat.nomorSeri}"></td>
                         <td th:text="${pesawat.jenisPesawat}"></td>
                         <td th:text="${pesawat.tipe.nama}"></td>
@@ -99,7 +55,7 @@
                 <span th:unless="${size == 0}">
                     <span th:each="p, it: ${pesawat.listpenerbangan}">
                     <tr th:each="t, it: ${pesawat.listpesawatteknisi}">
-                        <td th:text="${iterationStatus.count}"></td>
+                        <td  th:text="${#ids.seq('')}"></td>
                         <td th:text="${pesawat.nomorSeri}"></td>
                         <td th:text="${pesawat.jenisPesawat}"></td>
                         <td th:text="${pesawat.tipe.nama}"></td>
@@ -112,6 +68,7 @@
             </span>
         </span>
     </span>
+        </span>
     </tbody>
     <tfoot>
     <tr>
@@ -130,7 +87,7 @@
     $(document).ready(function() {
     $('#example').DataTable( {
         initComplete: function () {
-            this.api().columns([2, 3, 5, 6]).every( function () {
+            this.api().columns([3, 5, 6]).every( function () {
             var column = this;
             var select = $('<select><option value=""></option></select>')
                 .appendTo( $(column.footer()).empty() )

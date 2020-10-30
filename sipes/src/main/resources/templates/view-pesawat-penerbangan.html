@@ -121,7 +121,7 @@
                     <td th:text="${t.nomorPenerbangan}"></td>
                     <td th:text="${t.kodeBandaraAsal}"></td>
                     <td th:text="${t.kodeBandaraTujuan}"></td>
-                    <td th:text="${t.waktuBerangkat}"></td>
+                    <td th:text="${#dates.format(t.waktuBerangkat, 'dd-MM-yyyy')}"></td>
                 </tr>
                 </tbody>
             </table>

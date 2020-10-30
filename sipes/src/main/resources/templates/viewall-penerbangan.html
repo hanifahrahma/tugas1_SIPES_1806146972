@@ -33,7 +33,7 @@
         <td th:text="${p.nomorPenerbangan}"></td>
         <td th:text="${p.kodeBandaraAsal}"></td>
         <td th:text="${p.kodeBandaraTujuan}"></td>
-        <td th:text="${p.waktuBerangkat}"></td>
+        <td th:text="${#dates.format(p.waktuBerangkat, 'dd-MM-yyyy')}"></td>
         <td><a th:href="@{/penerbangan/}+${p.id}" class="btn btn-primary">Lihat</a></td>
         <td><a th:href="@{/penerbangan/ubah/}+${p.id}" class="btn btn-warning">Ubah</a></td>
         <td><a th:href="@{/penerbangan/hapus/}+${p.id}" class="btn btn-danger">Hapus</a></td>

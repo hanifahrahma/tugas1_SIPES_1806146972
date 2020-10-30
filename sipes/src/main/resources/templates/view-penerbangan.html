@@ -12,7 +12,7 @@
 <div class="row justify-content-md-center" style="margin-top: 5%;">
     <h2 >Detail Penerbangan</h2>
 </div>
-<div class="row justify-content-md-center" >
+<div class="row justify-content-md-center" style="margin-top: 5%;">
     <div class="col col-lg-2" style="font-weight: bold;">
         <p>Kode Penerbangan</p>
     </div>
@@ -41,7 +41,7 @@
         <p>Waktu Berangkat</p>
     </div>
     <div class="col col-lg-2">
-        <p th:text="${penerbangan.waktuBerangkat}"></p>
+        <p th:text="${#dates.format(penerbangan.waktuBerangkat, 'dd-MM-yyyy')}"></p>
     </div>
 </div>
 <div class="row justify-content-md-center">

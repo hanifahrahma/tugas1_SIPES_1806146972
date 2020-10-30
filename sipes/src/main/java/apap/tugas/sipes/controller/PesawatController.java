@@ -85,6 +85,7 @@ public class PesawatController {
         if(pesawatModel.getListpesawatteknisi() != null || pesawatModel.getListpesawatteknisi().size() !=0){
             for(PesawatTeknisiModel pesawatTeknisiModel: pesawatModel.getListpesawatteknisi()){
                 pesawatTeknisiModel.setPesawat(pesawatModel);
+                System.out.println(pesawatTeknisiModel.getPesawat().getId());
                 pesawatTeknisiService.addPesawatTeknisi(pesawatTeknisiModel);
             }
         }
