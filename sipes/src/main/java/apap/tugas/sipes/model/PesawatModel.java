@@ -57,7 +57,7 @@ public class PesawatModel implements Serializable {
     @OneToMany(mappedBy = "pesawat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PenerbanganModel> listpenerbangan;
 
-    @OneToMany(mappedBy = "pesawat")
+    @OneToMany(mappedBy = "pesawat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PesawatTeknisiModel> listpesawatteknisi;
 
 
